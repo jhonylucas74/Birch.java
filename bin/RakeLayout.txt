@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.sql.Connection; 
+import java.sql.Statement;
+
+public class RakeTables {
+
+	private Connection c;
+	
+	public RakeTables(){
+
+		
+		
+        try{
+        // Criando conexão com o DB
+        c = new ConnectionFactory().getConnection();
+
+        Statement stmt = null;
+        stmt = c.createStatement();	    
+        
+        ArrayList<String> sqls = new ArrayList<String>();
+        
+        // Adicionando SQLs que serão executadas,não apague a linha abaixo.
+        //@SQLS
+
+        for( String sql: sqls){
+            //Executando sql
+            stmt.executeUpdate(sql);		    
+        
+        }
+        
+        // Fechando conexão com o DB
+        stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+}

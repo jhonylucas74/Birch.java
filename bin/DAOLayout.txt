@@ -1,0 +1,115 @@
+import java.sql.Connection; 
+import java.sql.ResultSet;
+import java.sql.Statement; 
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class @objetoDAO {
+
+    private Connection c;
+    
+    public @objetoDAO() {
+        c = new ConnectionFactory().getConnection();
+    }
+
+    public @objeto get@objeto(String id) {
+	
+        try {
+            @objeto obj = new @objeto();			
+			 
+            Statement stmt = null;					  		    		     
+            stmt = c.createStatement();
+            ResultSet rs;
+            
+            rs = stmt.executeQuery("SELECT* FROM @tabela WHERE" + " @id = '"+ id +"' ;");
+            
+            while (rs.next()) {
+                @lista_set
+            }
+
+            rs.close();
+            stmt.close();
+			     
+            return obj;
+			
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+		return null;
+	}
+
+
+    public getList<@objeto> all() {
+		
+        try {
+            Statement stmt = null;
+            List<@objeto> listObjs = new ArrayList<@objeto>();
+					     								
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM @tabela;" );			
+
+            while (rs.next()) {				
+                @objeto obj = new @objeto();
+				
+                @lista_set
+                listObjs.add(obj);
+            }
+
+            rs.close();
+            stmt.close();
+            			
+            return listObjs;
+			
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		  
+        return null;
+	}
+
+
+    public void create(@objeto obj) {
+	    
+        Statement stmt = null;	    
+        String sql = "INSERT INTO @tabela(@atributos_sql) values ('";		
+        try {			
+            stmt = c.createStatement();								
+    
+            @lista_get			
+            stmt.executeUpdate(sql);		    
+            stmt.close();		      		     		    
+		} catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+
+    public void update(@objeto obj) {
+        String id = obj.getId();
+        Statement stmt = null;		  
+        String sql = "update @tabela set "+@lista_update ;
+
+        try {			     			
+            stmt = c.createStatement();
+            stmt.executeUpdate(sql);			    
+            stmt.close();			     
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(String id) {
+		
+        Statement stmt = null;        		
+        try {								   
+            stmt = c.createStatement();
+            String sql = "DELETE FROM @tabela WHERE @id = '"+id+"';";
+            stmt.executeUpdate(sql);		    
+            stmt.close();		     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+}
